@@ -1,4 +1,9 @@
-const {AsyncStorage} = require('react-native');
+/**
+ * This is a service in the data layer
+ * It communicates and passes data to and from the database
+ */
+
+import AsyncStorage from '@react-native-community/async-storage';
 const Parse = require('parse/react-native');
 
 // Configuration for connecting to the parse server
@@ -32,21 +37,33 @@ export const login = (username, password) => {
       // Do after unsuccessfull login
       console.log('invalid login');
     });
+};
 
-  // Store user data
-  const _storeData = async (userId, username, email, token) => {
-    try {
-      // Convert to JSON
-      const data = JSON.stringify({
-        userId: userId,
-        username: username,
-        email: email,
-        token: token,
-      });
-      await AsyncStorage.setItem('userData', data);
-    } catch (error) {
-      // Error saving dat
-      console.log('error saving data');
-    }
-  };
+// Store user data
+export const _storeData = async (userId, username, email, token) => {
+  try {
+    // Convert to JSON
+    const data = JSON.stringify({
+      userId: userId,
+      username: username,
+      email: email,
+      token: token,
+    });
+    console.log(data);
+    await AsyncStorage.setItem('userData', data);
+    console.log('saved to LS successfully');
+  } catch (error) {
+    // Error saving dat
+    console.log('error saving data');
+  }
+};
+
+export const _getUserData = async () => {
+  try {
+    await AsyncStorage.getItem('userData', () => {
+      console.log('unable to find userData in LS');
+    });
+  } catch (error) {
+    console.log('error in getUserData');
+  }
 };

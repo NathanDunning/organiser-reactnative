@@ -14,12 +14,14 @@ import {
 } from 'react-native';
 
 /**
- * This function is used to render the actual login form.
- * It passes values to the Login class to process
+ * This function is used to render the actual registration form.
+ * It passes values to the Registration class to process
  */
-const LoginForm = props => {
+const RegisterForm = props => {
   const [username, onChangeUsername] = React.useState('');
+  const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
+  const [confPassword, onChangeConf] = React.useState('');
 
   return (
     <View style={styles.container}>
@@ -29,6 +31,19 @@ const LoginForm = props => {
         onSubmitEditing={() => this.passwordInput.focus()}
         onChangeText={text => onChangeUsername(text)}
         value={username}
+        autoCorrect={false}
+        keyboardType="default"
+        returnKeyType="next"
+        placeholder="Username"
+        placeholderTextColor="rgba(0,0,0,0.7)"
+      />
+
+      <TextInput
+        style={styles.input}
+        autoCapitalize="none"
+        onSubmitEditing={() => this.passwordInput.focus()}
+        onChangeText={text => onChangeEmail(text)}
+        value={email}
         autoCorrect={false}
         keyboardType="email-address"
         returnKeyType="next"
@@ -46,10 +61,20 @@ const LoginForm = props => {
         secureTextEntry
       />
 
+      <TextInput
+        style={styles.input}
+        returnKeyType="go"
+        onChangeText={input => onChangeConf(input)}
+        value={confPassword}
+        placeholder="Confirm Password"
+        placeholderTextColor="rgba(0,0,0,0.7)"
+        secureTextEntry
+      />
+
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => props.click(username, password)}>
-        <Text style={styles.buttonText}>LOGIN</Text>
+        onPress={() => props.click(username, email, password, confPassword)}>
+        <Text style={styles.buttonText}>REGISTER</Text>
       </TouchableOpacity>
     </View>
   );
@@ -80,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default RegisterForm;

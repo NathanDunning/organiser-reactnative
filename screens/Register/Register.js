@@ -5,41 +5,44 @@
 
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import RegisterForm from './RegisterForm';
+import register from '../../services/register/register_service';
 
-import LoginForm from './LoginForm';
-import {login} from '../../services/login/login_service';
 /**
  * This is the function to render the login page.
  * This page is for displaying
  */
-const Login = ({history}) => {
+const Register = ({history}) => {
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>
         <Text style={styles.title}>Organise</Text>
       </View>
-      <LoginForm click={onLogin} />
+      <RegisterForm click={onRegister} />
       <Button
-        title="Don't have an account?"
-        onPress={() => history.push('/register')}
-      />
-      <Button
-        title="Clear Storage"
-        onPress={() =>
-          AsyncStorage.clear()
-            .then(res => console.log('storage clear'))
-            .catch(err => console.log('storage empty'))
-        }
+        title="Already have an account?"
+        onPress={() => history.push('/login')}
       />
     </View>
   );
 };
 
-/**
- * Function that sends the request to the server
- */
-const onLogin = (username, password) => login(username, password);
+// Call the register service
+const onRegister = (username, email, password, confPassword) => {
+  register(username, email, password, confPassword)
+    .then(res => {
+      //navToHome();
+      console.log('successful register, navigate to home');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+// Navigate to home page
+export const navToHome = ({history}) => {
+  history.push('/home');
+};
 
 /**
  * Style sheets for organising the page
@@ -65,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
