@@ -22,40 +22,54 @@ Parse.initialize(
 export const login = (username, password) => {
   // Authenticate here
   // Pass the username and password to login function
-  Parse.User.logIn(username, password)
-    .then(user => {
-      // Do after successful login
-      // Set user
-      _storeData(
-        user.id,
-        user.get('username'),
-        user.get('email'),
-        user.get('sessionToken'),
-      );
-    })
-    .catch(error => {
-      // Do after unsuccessfull login
-      console.log('invalid login');
-    });
+  return new Promise((res, rej) => {
+    Parse.User.logIn(username, password)
+      .then(user => {
+        // Do after successful login
+        // Set user
+        _storeData(
+          user.id,
+          user.get('username'),
+          user.get('email'),
+          user.get('sessionToken'),
+        )
+          .then(data => {
+            // ret is json of userid, token etc
+            res(data);
+          })
+          .catch(err => {
+            rej(err);
+          });
+      })
+      .catch(error => {
+        // Do after unsuccessfull login
+        console.log('invalid login');
+        rej(error);
+      });
+  });
 };
 
 // Store user data
 export const _storeData = async (userId, username, email, token) => {
-  try {
-    // Convert to JSON
-    const data = JSON.stringify({
-      userId: userId,
-      username: username,
-      email: email,
-      token: token,
-    });
-    console.log(data);
-    await AsyncStorage.setItem('userData', data);
-    console.log('saved to LS successfully');
-  } catch (error) {
-    // Error saving dat
-    console.log('error saving data');
-  }
+  return new Promise((res, rej) => {
+    try {
+      // Convert to JSON
+      const data = JSON.stringify({
+        userId: userId,
+        username: username,
+        email: email,
+        token: token,
+      });
+
+      AsyncStorage.setItem('userData', data);
+      console.log('saved to LS successfully');
+
+      res(data);
+    } catch (error) {
+      // Error saving dat
+      rej(error);
+    }
+  });
 };
 
 export const _getUserData = async () => {

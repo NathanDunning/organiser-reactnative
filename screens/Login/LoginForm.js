@@ -30,9 +30,8 @@ const LoginForm = props => {
         onChangeText={text => onChangeUsername(text)}
         value={username}
         autoCorrect={false}
-        keyboardType="email-address"
         returnKeyType="next"
-        placeholder="Email"
+        placeholder="Username"
         placeholderTextColor="rgba(0,0,0,0.7)"
       />
 

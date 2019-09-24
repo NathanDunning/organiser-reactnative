@@ -36,8 +36,13 @@ const register = (username, email, password, confPassword) => {
           user.get('username'),
           user.get('email'),
           user.get('sessionToken'),
-        );
-        resolve(user);
+        )
+          .then(data => {
+            resolve(data);
+          })
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(error => {
         reject(error);
