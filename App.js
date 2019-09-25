@@ -6,7 +6,9 @@ import Home from './screens/Home/Home';
 import Login from './screens/Login/Login';
 import Register from './screens/Register/Register';
 import Calendar from './screens/Calendar/Calendar';
-import addEvent from './screens/Calendar/AddEvent';
+import AddEvent from './screens/Calendar/AddEvent';
+import Todo from './screens/Todo/Todo';
+import News from './screens/News/News';
 
 const AppNavigator = createStackNavigator(
   {
@@ -14,10 +16,12 @@ const AppNavigator = createStackNavigator(
     Login: Login,
     Register: Register,
     Calendar: Calendar,
-    AddEvent: addEvent,
+    AddEvent: AddEvent,
+    Todo: Todo,
+    News: News,
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
   },
 );
 

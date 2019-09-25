@@ -53,14 +53,14 @@ class Login extends Component {
           title="Don't have an account?"
           onPress={() => this.props.navigation.navigate('Register')}
         />
-        <Button
+        {/* <Button
           title="Clear Storage"
           onPress={() =>
             AsyncStorage.clear()
               .then(res => console.log('storage clear'))
               .catch(err => console.log('storage empty'))
           }
-        />
+        /> */}
       </View>
     );
   }

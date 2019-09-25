@@ -8,6 +8,7 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Calendar from '../Calendar/Calendar';
+import SideMenu from '../../components/SideMenu';
 
 // The main class for rendering the home page
 const Home = props => {
@@ -25,7 +26,7 @@ const Home = props => {
   // Menu
   return (
     <View style={styles.container}>
-      <Calendar />
+      <Calendar navigation={props.navigation} />
     </View>
   );
 };
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    paddingTop: 80,
+    paddingTop: 20,
   },
 });
 

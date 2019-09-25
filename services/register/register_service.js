@@ -18,7 +18,6 @@ Parse.initialize(
  * This function is used to register the user to the database.
  */
 const register = (username, email, password, confPassword) => {
-  console.log(username, email, password);
   return new Promise((resolve, reject) => {
     const user = new Parse.User();
     user.set('username', username);
@@ -29,7 +28,6 @@ const register = (username, email, password, confPassword) => {
     user
       .signUp()
       .then(user => {
-        console.log('user signed up ', user);
         // Store user
         _storeData(
           user.id,

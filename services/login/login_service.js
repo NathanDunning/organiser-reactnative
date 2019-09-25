@@ -62,7 +62,6 @@ export const _storeData = async (userId, username, email, token) => {
       });
 
       AsyncStorage.setItem('userData', data);
-      console.log('saved to LS successfully');
 
       res(data);
     } catch (error) {

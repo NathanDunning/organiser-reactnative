@@ -21,7 +21,6 @@ class Register extends Component {
   onRegister = (username, email, password, confPassword) => {
     register(username, email, password, confPassword)
       .then(res => {
-        console.log('successful register, navigate to home');
         console.log(res);
         this.props.navigation.navigate('Home');
       })
